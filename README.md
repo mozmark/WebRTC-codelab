@@ -118,7 +118,7 @@ This code does a lot!:
 
 Complete example: [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step4.html).
 
-For this step, we'll create an app that sends text between two textareas on the same page. Not very useful, except to demonstrate how RTCDataChannel works!
+For this step, we'll use RTCDataChannel to send text between two textareas on the same page: not very useful, except to demonstrate how the API works.
 
 1. Create a new document and add the following HTML:
 
@@ -127,33 +127,39 @@ For this step, we'll create an app that sends text between two textareas on the 
 &lt;textarea id="dataChannelReceive" disabled&gt;&lt;/textarea&gt;
 
 &lt;div id="buttons"&gt;
-  &lt;button id="startButton" onclick="createConnection()"&gt;Start&lt;/button&gt;
-  &lt;button id="sendButton" onclick="sendData()"&gt;Send&lt;/button&gt;
-  &lt;button id="closeButton" onclick="closeDataChannels()"&gt;Stop&lt;/button&gt;
+  &lt;button id="startButton"&gt;Start&lt;/button&gt;
+  &lt;button id="sendButton"&gt;Send&lt;/button&gt;
+  &lt;button id="closeButton"&gt;Stop&lt;/button&gt;
 &lt;/div&gt;
 </pre>
 
 3. Add the JavaScript from [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step3.html).
 
-This code uses RTCPeerConnection to enable exchange of text messages. The additional code is as follows:
+This code uses RTCPeerConnection to enable exchange of text messages.
+
+A lot of the code is the same as for the RTCPeerConnection example. Additional code is as follows:
 
     function sendData(){
       var data = document.getElementById("dataChannelSend").value;
       sendChannel.send(data);
     }
+    ...
     localPeerConnection = new webkitRTCPeerConnection(servers,
       {optional: [{RtpDataChannels: true}]});
     sendChannel = localPeerConnection.createDataChannel("sendDataChannel",
       {reliable: false});
+    sendChannel.onopen = handleSendChannelStateChange;
+    sendChannel.onclose = handleSendChannelStateChange;
     ...
     remotePeerConnection = new webkitRTCPeerConnection(servers,
       {optional: [{RtpDataChannels: true}]});
-    function receiveChannelCallback(event) {
+    function gotReceiveChannel(event) {
       receiveChannel = event.channel;
-      receiveChannel.onmessage = onReceiveMessageCallback;
+      receiveChannel.onmessage = got Message;
     }
-    remotePeerConnection.ondatachannel = receiveChannelCallback;
-    function onReceiveMessageCallback(event) {
+    ...
+    remotePeerConnection.ondatachannel = gotReceiveChannel;
+    function gotMessage(event) {
       document.getElementById("dataChannelReceive").value = event.data;
     }
 
@@ -162,14 +168,11 @@ This code uses RTCPeerConnection to enable exchange of text messages. The additi
 ### Bonus points
 
 1. Try out RTCDataChannel file sharing with [Sharefest](http://www.sharefest.me/). When would RTCDataChannel need to be reliable, and when might performance be more important?
-2. Use CSS to improve page layout.
-3. Add a placeholder attribute to the _dataChannelReceive_ textarea.
+2. Use CSS to improve page layout, and add a placeholder attribute to the _dataChannelReceive_ textarea.
 4. Test the page on a mobile device.
 
 
-## Step 4: Set up a signalling server
-
-## Step 5: Exchange messages via the signalling server
+## Step 4: Set up a signalling server and exchange messages
 
 ## Step 7: putting it all together: RTCDataChannel + RTCPeerConnection
 
