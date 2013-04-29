@@ -41,22 +41,23 @@ Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src
 
     :::javascript
 
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        navigator.getUserMedia = navigator.getUserMedia ||
+          navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-    var constraints = {video: true};
+        var constraints = {video: true};
 
-    function successCallback(localMediaStream) {
-      window.stream = localMediaStream; // stream available to console
-      var video = document.querySelector("video");
-      video.src = window.URL.createObjectURL(localMediaStream);
-      video.play();
-    }
+        function successCallback(localMediaStream) {
+          window.stream = localMediaStream; // stream available to console
+          var video = document.querySelector("video");
+          video.src = window.URL.createObjectURL(localMediaStream);
+          video.play();
+        }
 
-    function errorCallback(error){
-      console.log("navigator.getUserMedia error: ", error);
-    }
+        function errorCallback(error){
+          console.log("navigator.getUserMedia error: ", error);
+        }
 
-    navigator.getUserMedia(constraints, successCallback, errorCallback);
+        navigator.getUserMedia(constraints, successCallback, errorCallback);
 
 3. View your page from _localhost_.
 
