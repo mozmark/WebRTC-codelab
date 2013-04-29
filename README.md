@@ -7,7 +7,7 @@
 
 Intervening line.
 
-     :::java
+    :::java
         for (Iterator iterator2 = inwardIssues.iterator(); iterator2.hasNext();)
         {
             GenericValue inwardIssue = (GenericValue) iterator2.next();
