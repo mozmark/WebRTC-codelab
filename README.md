@@ -39,24 +39,24 @@ Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src
 1. Add a video element to your page.
 2. Add the following JavaScript to the script element on your page, to enable getUserMedia() to set the source of the video from the web cam:
 
-<pre>
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    <pre>
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-var constraints = {video: true};
+    var constraints = {video: true};
 
-function successCallback(localMediaStream) {
-  window.stream = localMediaStream; // stream available to console
-  var video = document.querySelector("video");
-  video.src = window.URL.createObjectURL(localMediaStream);
-  video.play();
-}
+    function successCallback(localMediaStream) {
+      window.stream = localMediaStream; // stream available to console
+      var video = document.querySelector("video");
+      video.src = window.URL.createObjectURL(localMediaStream);
+      video.play();
+    }
 
-function errorCallback(error){
-  console.log("navigator.getUserMedia error: ", error);
-}
+    function errorCallback(error){
+      console.log("navigator.getUserMedia error: ", error);
+    }
 
-navigator.getUserMedia(constraints, successCallback, errorCallback);
-</pre>
+    navigator.getUserMedia(constraints, successCallback, errorCallback);
+    </pre>
 
 3. View your page from _localhost_.
 
@@ -148,6 +148,7 @@ For this step, we'll use RTCDataChannel to send text between two textareas on th
 1. Create a new document and add the following HTML:
 
     <pre>
+
     &lt;textarea id="dataChannelSend" disabled&gt;&lt;/textarea&gt;
     &lt;textarea id="dataChannelReceive" disabled&gt;&lt;/textarea&gt;
 
@@ -222,4 +223,4 @@ Abstraction libraries such as SimpleWebRTC make it simple to create
 ### Bonus points
 
 1. Find a WebRTC library for RTCDataChannel.
-2. Set up your own signalling server (you might want to use the SimpleWebRTC server [signalmaster](https://github.com/andyet/signalmaster).
+2. Set up your own signalling server (you might want to use the SimpleWebRTC server [signalmaster](https://github.com/andyet/signalmaster)).
