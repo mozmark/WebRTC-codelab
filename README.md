@@ -1,24 +1,3 @@
-Blah
-
-    :::javascript
-    navigator.getUserMedia = navigator.getUserMedia ||
-      navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-    var constraints = {video: true};
-
-    function successCallback(localMediaStream) {
-      window.stream = localMediaStream; // stream available to console
-      var video = document.querySelector("video");
-      video.src = window.URL.createObjectURL(localMediaStream);
-      video.play();
-    }
-
-    function errorCallback(error){
-      console.log("navigator.getUserMedia error: ", error);
-    }
-
-    navigator.getUserMedia(constraints, successCallback, errorCallback);
-
 #WebRTC tutorial
 
 ##Overview
@@ -60,9 +39,27 @@ Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src
 1. Add a video element to your page.
 2. Add the following JavaScript to the script element on your page, to enable getUserMedia() to set the source of the video from the web cam:
 
+    :::javascript
 
+    navigator.getUserMedia = navigator.getUserMedia ||
+      navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-View your page from _localhost_.
+    var constraints = {video: true};
+
+    function successCallback(localMediaStream) {
+      window.stream = localMediaStream; // stream available to console
+      var video = document.querySelector("video");
+      video.src = window.URL.createObjectURL(localMediaStream);
+      video.play();
+    }
+
+    function errorCallback(error){
+      console.log("navigator.getUserMedia error: ", error);
+    }
+
+    navigator.getUserMedia(constraints, successCallback, errorCallback);
+
+3. View your page from _localhost_.
 
 ### Explanation
 
@@ -92,9 +89,9 @@ If successful, the video stream from the webcam is set as the source of the vide
 5. What size is the video element?  How can you get the video's natural size from JavaScript? Use the Chrome Dev Tools to check. Use CSS to make the video full width. How would you ensure the video is no higher than the viewport?
 6. Try adding CSS filters to the video element (more ideas [here](http://html5-demos.appspot.com/static/css/filters/index.html)):
 
-     :::css
+    :::css
 
-   video {
+    video {
       filter: hue-rotate(180deg) saturate(200%);
       -moz-filter: hue-rotate(180deg) saturate(200%);
       -webkit-filter: hue-rotate(180deg) saturate(200%);
@@ -112,16 +109,16 @@ This example sets up a connection between peers on the same page. Not much use, 
 
 2. Edit the HTML so there are two video elements and three buttons: Start, Call and Hang Up:
 
-    :::html
+    :::html
 
-    &lt;video id="vid1" autoplay&gt;&lt;/video&gt;
-    &lt;video id="vid2" autoplay&gt;&lt;/video&gt;
+    <video id="vid1" autoplay></video>
+    <video id="vid2" autoplay></video>
 
-    &lt;div&gt;
-      &lt;button id="startButton"&gt;Start&lt;/button&gt;
-      &lt;button id="callButton"&gt;Call&lt;/button&gt;
-      &lt;button id="hangupButton"&gt;Hang Up&lt;/button&gt;
-    &lt;/div&gt;
+    <div>
+      <button id="startButton">Start</button>
+      <button id="callButton">Call</button>
+      <button id="hangupButton">Hang Up</button>
+    </div>
 
 3. Add the JavaScript from [complete/step3.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step3.html).
 
@@ -151,17 +148,16 @@ For this step, we'll use RTCDataChannel to send text between two textareas on th
 
 1. Create a new document and add the following HTML:
 
-    :::html
+    :::html
 
-    &lt;textarea id="dataChannelSend" disabled&gt;&lt;/textarea&gt;
-    &lt;textarea id="dataChannelReceive" disabled&gt;&lt;/textarea&gt;
+    <textarea id="dataChannelSend" disabled></textarea>
+    <textarea id="dataChannelReceive" disabled></textarea>
 
-    &lt;div id="buttons"&gt;
-      &lt;button id="startButton"&gt;Start&lt;/button&gt;
-      &lt;button id="sendButton"&gt;Send&lt;/button&gt;
-      &lt;button id="closeButton"&gt;Stop&lt;/button&gt;
-    &lt;/div&gt;
-    </pre>
+    <div id="buttons">
+      <button id="startButton">Start</button>
+      <button id="sendButton">Send</button>
+      <button id="closeButton">Stop</button>
+    </div>
 
 3. Add the JavaScript from [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step3.html).
 
@@ -171,7 +167,7 @@ This code uses RTCPeerConnection to enable exchange of text messages.
 
 A lot of the code is the same as for the RTCPeerConnection example. Additional code is as follows:
 
-    :::javascript
+    :::javascript
 
     function sendData(){
       var data = document.getElementById("dataChannelSend").value;
