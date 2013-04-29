@@ -14,4 +14,6 @@ Intervening line.
             System.out.println("inwardIssue = " + inwardIssue);
         }
 
+        System.out.println("inwardIssue = " + inwardIssue);
+
 This is the next block of text starting
