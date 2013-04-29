@@ -11,27 +11,30 @@ For more information about WebRTC, see [Getting started with WebRTC](http://www.
 ## Prerequisites
 
 Basic knowledge:
-1. git
-2. Chrome Dev Tools
+
+1. [git](http://git-scm.com/)
+2. [Chrome Dev Tools](https://developers.google.com/chrome-developer-tools/)
 
 Installed on your development machine:
+
 1. Chrome or Firefox Nightly
 2. Code editor
 3. Web server such as [MAMP](http://mamp.info/en/downloads) or [XAMPP](http://apachefriends.org/en/xampp.html)
 4. Web cam
-5. The source code: download or clone with git from  [source](https://bitbucket.org/webrtc/codelab/src).
+5. git, in order to get the source code
+6. The [source code](https://bitbucket.org/webrtc/codelab/src)
 
-
+It would also be useful to have an Android device with Chrome Beta installed in order to try out the examples on mobile.
 
 ## Step 1: Create a blank HTML5 document
 
-Complete example: [code/step1.html]().
+Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step1.html).
 
 1. Create a bare-bones HTML document.
 
 ## Step 2: Get video from your webcam
 
-Complete example: [code/step2.html]().
+Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step2.html).
 
 1. Add a video element to your page.
 2. Add code to use getUserMedia() to set the source of the video from the web cam.
@@ -70,11 +73,11 @@ video {
 }
 </pre>
 
-
-
 ## Step 3: Stream video with RTCPeerConnection
 
-Complete example: [code/step3.html]().
+Complete example: [complete/step3.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step3.html).
+
+RTCPeerConnection is the WebRTC API for video and audio calling.
 
 This example sets up a connection between peers on the same page. Not much use, but good for understanding how RTCPeerConnection works!
 
@@ -93,14 +96,13 @@ This example sets up a connection between peers on the same page. Not much use, 
 &lt;/div&gt;
 </pre>
 
-3. Add the JavaScript from [code/step3.html]().
+3. Add the JavaScript from [complete/step3.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step3.html).
 
-This code does a lot:
+This code does a lot!:
 
-* Get the local description: a description (in SDP format) of local media conditions.
-* Get a local ICE candidate: network information.
-* Exchange descriptions and candidates.
-* Pass the local stream to the remotePeerConnection.
+* Get and share local and remote descriptions: metadata (in SDP format) of local media conditions.
+* Get and share ICE candidates: network information.
+* Pass the local stream to the remote _RTCPeerConnection_.
 
 ### Bonus points
 
@@ -108,7 +110,70 @@ This code does a lot:
 2. Style the page with CSS:
     - Put the videos side by side.
     - Make the buttons the same width, with bigger text.
-3. From the Chrome Dev Tools console, inspect _localStream_, _localPeerConnection_ and _remotePeerConnection_. What does SDP format look like?
+    - Make sure it works on mobile.
+3. From the Chrome Dev Tools console, inspect _localStream_, _localPeerConnection_ and _remotePeerConnection_.
+4. Take a look at _localPeerConnection.localDescription_. What does SDP format look like?
+
+## Step 4: Stream arbitrary data with RTCDataChannel
+
+Complete example: [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step4.html).
+
+For this step, we'll create an app that sends text between two textareas on the same page. Not very useful, except to demonstrate how RTCDataChannel works!
+
+1. Create a new document and add the following HTML:
+
+<pre>
+&lt;textarea id="dataChannelSend" disabled&gt;&lt;/textarea&gt;
+&lt;textarea id="dataChannelReceive" disabled&gt;&lt;/textarea&gt;
+
+&lt;div id="buttons"&gt;
+  &lt;button id="startButton" onclick="createConnection()"&gt;Start&lt;/button&gt;
+  &lt;button id="sendButton" onclick="sendData()"&gt;Send&lt;/button&gt;
+  &lt;button id="closeButton" onclick="closeDataChannels()"&gt;Stop&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+
+3. Add the JavaScript from [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step3.html).
+
+This code uses RTCPeerConnection to enable exchange of text messages. The additional code is as follows:
+
+    function sendData(){
+      var data = document.getElementById("dataChannelSend").value;
+      sendChannel.send(data);
+    }
+    localPeerConnection = new webkitRTCPeerConnection(servers,
+      {optional: [{RtpDataChannels: true}]});
+    sendChannel = localPeerConnection.createDataChannel("sendDataChannel",
+      {reliable: false});
+    ...
+    remotePeerConnection = new webkitRTCPeerConnection(servers,
+      {optional: [{RtpDataChannels: true}]});
+    function receiveChannelCallback(event) {
+      receiveChannel = event.channel;
+      receiveChannel.onmessage = onReceiveMessageCallback;
+    }
+    remotePeerConnection.ondatachannel = receiveChannelCallback;
+    function onReceiveMessageCallback(event) {
+      document.getElementById("dataChannelReceive").value = event.data;
+    }
+
+    Notice the use of constraints.
+
+### Bonus points
+
+1. Try out RTCDataChannel file sharing with [Sharefest](http://www.sharefest.me/). When would RTCDataChannel need to be reliable, and when might performance be more important?
+2. Use CSS to improve page layout.
+3. Add a placeholder attribute to the _dataChannelReceive_ textarea.
+4. Test the page on a mobile device.
+
+
+## Step 4: Set up a signalling server
+
+## Step 5: Exchange messages via the signalling server
+
+## Step 7: putting it all together: RTCDataChannel + RTCPeerConnection
+
+
 
 
 
