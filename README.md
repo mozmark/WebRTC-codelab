@@ -1,4 +1,5 @@
     :::javascript
+
     navigator.getUserMedia = navigator.getUserMedia ||
       navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
