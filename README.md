@@ -84,16 +84,17 @@ If successful, the video stream from the webcam is set as the source of the vide
 1. Inspect the stream object from the console.
 2. Try calling `stream.stop()`.
 3. What does `stream.getVideoTracks()` return?
-4. What size is the video element?  How can you get the video's natural size from JavaScript? Use the Chrome Dev Tools to check. Use CSS to make the video full width. How would you ensure the video is no higher than the viewport?
-5. Try adding CSS filters to the video element (more ideas [here](http://html5-demos.appspot.com/static/css/filters/index.html)):
+4. Look at the constraints object: what happens when you change it to `{audio: true, video: true}`?
+5. What size is the video element?  How can you get the video's natural size from JavaScript? Use the Chrome Dev Tools to check. Use CSS to make the video full width. How would you ensure the video is no higher than the viewport?
+6. Try adding CSS filters to the video element (more ideas [here](http://html5-demos.appspot.com/static/css/filters/index.html)):
 
-<pre>
-video {
-  filter: hue-rotate(180deg) saturate(200%);
-  -moz-filter: hue-rotate(180deg) saturate(200%);
-  -webkit-filter: hue-rotate(180deg) saturate(200%);
-}
-</pre>
+    <pre>
+    video {
+      filter: hue-rotate(180deg) saturate(200%);
+      -moz-filter: hue-rotate(180deg) saturate(200%);
+      -webkit-filter: hue-rotate(180deg) saturate(200%);
+    }
+    </pre>
 
 ## Step 3: Stream video with RTCPeerConnection
 
@@ -197,18 +198,28 @@ Notice the use of constraints.
 2. Use CSS to improve page layout, and add a placeholder attribute to the _dataChannelReceive_ textarea.
 4. Test the page on a mobile device.
 
-
-## Step 4: Set up a signalling server and exchange messages
+## Step 5: Set up a signalling server and exchange messages
 
 In the examples already completed, signalling between RTCPeerconnection objects happens on the same page: the process of exchanging candidate information and offer/answer messages.
 
 In the real world, a server is required to enable signalling between WebRTC clients.
 
+[...]
 
+## Step 6: Put it all together: RTCDataChannel + RTCPeerConnection
 
-## Step 5: Putting it all together: RTCDataChannel + RTCPeerConnection
+[...]
 
+## Step 7: Use a WebRTC library: SimpleWebRTC
 
+Complete example: [complete/step7.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step7.html).
 
+Abstraction libraries such as SimpleWebRTC make it simple to create
 
+1. Create a new document using the code from [complete/step7.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step7.html).
+2. Open the document in multiple windows or tab.
 
+### Bonus points
+
+1. Find a WebRTC library for RTCDataChannel.
+2. Set up your own signalling server (you might want to use the SimpleWebRTC server [signalmaster](https://github.com/andyet/signalmaster).
