@@ -40,6 +40,7 @@ Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src
 1. Add a video element to your page.
 2. Add the following JavaScript to the script element on your page, to enable getUserMedia() to set the source of the video from the web cam:
 
+        :::javascript
         navigator.getUserMedia = navigator.getUserMedia ||
           navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
@@ -72,6 +73,7 @@ The constraints argument allows us to specify the media to get, in this case vid
 
 If successful, the video stream from the webcam is set as the source of the video element:
 
+    :::javascript
     function successCallback(localMediaStream) {
       window.stream = localMediaStream; // stream available to console
       var video = document.querySelector("video");
