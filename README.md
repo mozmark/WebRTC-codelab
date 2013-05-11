@@ -40,7 +40,6 @@ Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src
 1. Add a video element to your page.
 2. Add the following JavaScript to the script element on your page, to enable getUserMedia() to set the source of the video from the web cam:
 
-        :::javascript
         navigator.getUserMedia = navigator.getUserMedia ||
           navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
@@ -73,7 +72,6 @@ The constraints argument allows us to specify the media to get, in this case vid
 
 If successful, the video stream from the webcam is set as the source of the video element:
 
-    :::javascript
     function successCallback(localMediaStream) {
       window.stream = localMediaStream; // stream available to console
       var video = document.querySelector("video");
@@ -92,7 +90,6 @@ If successful, the video stream from the webcam is set as the source of the vide
 
 For example:
 
-    :::css
     video {
       filter: hue-rotate(180deg) saturate(200%);
       -moz-filter: hue-rotate(180deg) saturate(200%);
@@ -105,7 +102,7 @@ Complete example: [complete/step3.html](https://bitbucket.org/webrtc/codelab/src
 
 RTCPeerConnection is the WebRTC API for video and audio calling.
 
-This example sets up a connection between peers on the same page. Not much use, but good for understanding how RTCPeerConnection works!
+This example sets up a connection between two peers on the same page. Not much use, but good for understanding how RTCPeerConnection works!
 
 1. Get rid of the JavaScript you've entered so far -- we're going to do something different!
 
