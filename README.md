@@ -102,7 +102,7 @@ Complete example: [complete/step3.html](https://bitbucket.org/webrtc/codelab/src
 
 RTCPeerConnection is the WebRTC API for video and audio calling.
 
-This example sets up a connection between two peers on the same page. Not much use, but good for understanding how RTCPeerConnection works!
+This example sets up a connection between peers on the same page. Not much use, but good for understanding how RTCPeerConnection works!
 
 1. Get rid of the JavaScript you've entered so far -- we're going to do something different!
 
