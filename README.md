@@ -12,20 +12,23 @@ For more information about WebRTC, see [Getting started with WebRTC](http://www.
 
 Basic knowledge:
 
-1. [git](http://git-scm.com/)
-2. [Chrome Dev Tools](https://developers.google.com/chrome-developer-tools/)
+1. HTML, CSS and JavaScript
+2. [git](http://git-scm.com/)
+3. [Chrome DevTools](https://developers.google.com/chrome-developer-tools/)
+
+Experience of [Node.js](http://nodejs.org/) and [socket.io](http://socket.io/) would also be useful
 
 Installed on your development machine:
 
-1. Chrome or Firefox Nightly
+1. Google Chrome
 2. Code editor
-3. Web server such as [MAMP](http://mamp.info/en/downloads) or [XAMPP](http://apachefriends.org/en/xampp.html)
+3. Web server such as [MAMP](http://mamp.info/en/downloads) or [XAMPP](http://apachefriends.org/en/xampp.html) -- or just run `python -m SimpleHTTPServer` in your application directory
 4. Web cam
 5. git, in order to get the source code
 6. The [source code](https://bitbucket.org/webrtc/codelab/src)
 7. Node.js with socket.io and node-static. (Node.js hosting would also be an advantage -- see below for some options.)
 
-It would also be useful to have an Android device with Chrome Beta installed in order to try out the examples on mobile.
+It would also be useful to have an Android device with [Google Chrome Beta](https://play.google.com/store/apps/details?id=com.chrome.beta&hl=en) installed in order to try out the examples on mobile. To run WebRTC APIs on Chrome for Android, you must enable WebRTC from the chrome://flags page.
 
 ## Step 1: Create a blank HTML5 document
 
@@ -199,9 +202,53 @@ Notice the use of constraints.
 
 In the examples already completed, signalling between RTCPeerconnection objects happens on the same page: the process of exchanging candidate information and offer/answer messages.
 
-In the real world, a server is required to enable signalling between WebRTC clients.
+In the real world, a server is required to enable signalling between WebRTC clients on different devices.
 
-[...]
+In this step we'll build a simple Node.js messaging server, using socket.io Node module and JavaScript library for messaging. Experience of [Node.js](http://nodejs.org/) and [socket.io](http://socket.io/) will be useful, but not crucial. In this example, the server is _server.js_ and the client is _index.html_.
+
+The server application in this step has two tasks.
+
+To act as a messaging intermediary:
+
+    socket.on('message', function (message) {
+      log('Got message: ', message);
+      socket.broadcast.emit('message', message); // should be room only
+    });
+
+To manage 'rooms':
+
+    if (numClients == 0){
+      socket.join(room);
+      socket.emit('created', room);
+    } else if (numClients == 1) {
+      io.sockets.in(room).emit('join', room);
+      socket.join(room);
+      socket.emit('joined', room);
+    } else { // max two clients
+      socket.emit('full', room);
+    }
+
+Our simple WebRTC application will only permit a maximum of two peers to share a room.
+
+1. Ensure you have Node, socket.io and [node-static](https://github.com/cloudhead/node-static) installed.
+
+2. Using the code from the _step 5_ directory, run the server (_server.js_). To start the server, from your application directory run the following:
+
+        node server.js
+
+3. From your browser, open _localhost:2013_. Open a new tab page or window in any browser and open _localhost:2013_ again, then repeat.
+
+4. To see what's happening, check the Chrome DevTools console (Command-Option-J, or Ctrl-Shift-J).
+
+### Bonus points
+
+1. Try deploying your messaging server so you can access it via a public URL. (Free trials and easy deployment options for Node are available on several hosting sites including [nodejitsu](http://www.nodejitsu.com), [heroku](http://www.heroku.com) and [nodester](http://www.nodester.com).)
+
+2. What alternative messaging mechanisms are available? (Take a look at [apprtc.appspot.com](http://www.apprtc.appspot.com).) What problems might we encounter using 'pure' WebSocket? (Take a look at Arnout Kazemier's presentation, [WebSuckets](https://speakerdeck.com/3rdeden/websuckets).)
+
+3. What issues might be involved with scaling this application? Can to develop a method for testing thousands or millions of simultaneous room requests.
+
+4. Try out Remy Sharp's tool [nodemon](https://github.com/remy/nodemon). This monitors any changes in your Node.js application and automatically restarts the server when changes are saved.
 
 ## Step 6: Put it all together: RTCDataChannel + RTCPeerConnection
 
