@@ -1,4 +1,4 @@
-#WebRTC tutorial
+# WebRTC codelab
 
 ##Overview
 
@@ -29,6 +29,10 @@ Installed on your development machine:
 7. Node.js with socket.io and node-static. (Node.js hosting would also be an advantage -- see below for some options.)
 
 It would also be useful to have an Android device with [Google Chrome Beta](https://play.google.com/store/apps/details?id=com.chrome.beta&hl=en) installed in order to try out the examples on mobile. To run WebRTC APIs on Chrome for Android, you must enable WebRTC from the chrome://flags page.
+
+## Step 0: Get the code
+
+Using git, clone the codelab repository onto your development computer. If you haven't used git before, there are several tutorials and reference guides available from the [git website](http://git-scm.com/).
 
 ## Step 1: Create a blank HTML5 document
 
