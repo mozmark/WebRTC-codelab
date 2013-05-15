@@ -250,6 +250,8 @@ Our simple WebRTC application will only permit a maximum of two peers to share a
 
 4. Try out Remy Sharp's tool [nodemon](https://github.com/remy/nodemon). This monitors any changes in your Node.js application and automatically restarts the server when changes are saved.
 
+5. This app uses a JavaScript prompt to get a room name. Work out a way to get the room name from the URL, for example _localhost:2013/foo_ would give the room name _foo_.
+
 ## Step 6: Put it all together: RTCDataChannel + RTCPeerConnection
 
 [...]
