@@ -252,15 +252,39 @@ Our simple WebRTC application will only permit a maximum of two peers to share a
 
 5. This app uses a JavaScript prompt to get a room name. Work out a way to get the room name from the URL, for example _localhost:2013/foo_ would give the room name _foo_.
 
-## Step 6: Put it all together: RTCDataChannel + RTCPeerConnection
+## Step 6: RTCPeerConnection with messaging
 
-[...]
+Complete example: [complete/step6.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step7.html).
+
+In this step, we build a video chat client, using the signalling server we created in Step 5 and the RTCPeerConnection code from Step 3.
+
+1. Ensure you have Node, socket.io and [node-static](https://github.com/cloudhead/node-static) installed and working. If in doubt, try the code in Step 5.
+
+2. Using the code from the _step 6_ directory, run the server (_server.js_). To start the server, from your application directory run the following:
+
+        node server.js
+
+3. From your browser, open _localhost:2013_. Open a new tab page or window in any browser and open _localhost:2013_.
+
+4. View logging from the Chrome DevTools console and WebRTC debug information from chrome://webrtc-internals.
+
+## Bonus points
+
+1. This application only supports one-to-one video chat. How might you change the design to enable more than one person to share the same video chat room? (Look at [conversat.io](http://conversat.io) for an example of this in action.)
+
+2. The example has the room name _foo_ hard coded. What would be the best way to enable other room names?
+
+3. Does the app work on mobile? Try it out on a phone, or a 7" and 10" tablet. What layout, UI and UX changes would be required to ensure a good mobile experience?
+
+4. Deploy your app at a public URL (see above for hosting options). Try different network configurations, for example with one user on wifi and another on 3G. Any problems?
+
+5. How would users share the room name? Try to build an alternative to sharing room names.
 
 ## Step 7: Use a WebRTC library: SimpleWebRTC
 
 Complete example: [complete/step7.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step7.html).
 
-Abstraction libraries such as SimpleWebRTC make it simple to create
+Abstraction libraries such as SimpleWebRTC make it simple to create WebRTC applications.
 
 1. Create a new document using the code from [complete/step7.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step7.html).
 2. Open the document in multiple windows or tab.
@@ -268,4 +292,4 @@ Abstraction libraries such as SimpleWebRTC make it simple to create
 ### Bonus points
 
 1. Find a WebRTC library for RTCDataChannel.
-2. Set up your own signalling server (you might want to use the SimpleWebRTC server [signalmaster](https://github.com/andyet/signalmaster)).
+2. Set up your own signalling server using the SimpleWebRTC server [signalmaster](https://github.com/andyet/signalmaster).
