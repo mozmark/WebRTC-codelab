@@ -272,25 +272,38 @@ In this step, we build a video chat client, using the signalling server we creat
 
 4. View logging from the Chrome DevTools console and WebRTC debug information from chrome://webrtc-internals.
 
-## Bonus points
+### Bonus points
 
 1. This application only supports one-to-one video chat. How might you change the design to enable more than one person to share the same video chat room? (Look at [conversat.io](http://conversat.io) for an example of this in action.)
 
 2. The example has the room name _foo_ hard coded. What would be the best way to enable other room names?
 
-3. Does the app work on mobile? Try it out on a phone, or a 7" and 10" tablet. What layout, UI and UX changes would be required to ensure a good mobile experience?
+3. Does the app work on mobile? Try it out on a phone, on a 7" and a 10" tablet. What layout, UI and UX changes would be required to ensure a good mobile experience?
 
 4. Deploy your app at a public URL (see above for hosting options). Try different network configurations, for example with one user on wifi and another on 3G. Any problems?
 
 5. How would users share the room name? Try to build an alternative to sharing room names.
 
-## Step 7: Use a WebRTC library: SimpleWebRTC
+## Step 7: Putting it all together: RTCPeerConnection + RTCDataChannel + signalling
 
 Complete example: [complete/step7.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step7.html).
 
+
+
+### Bonus points
+
+1. The app hasn't had any work done on layout. Sort it out! Make sure your app works well on different devices.
+
+
+
+
+## Step 8: Use a WebRTC library: SimpleWebRTC
+
+Complete example: [complete/step8.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step8.html).
+
 Abstraction libraries such as SimpleWebRTC make it simple to create WebRTC applications.
 
-1. Create a new document using the code from [complete/step7.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step7.html).
+1. Create a new document using the code from [complete/step8.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step8.html).
 2. Open the document in multiple windows or tab.
 
 ### Bonus points
