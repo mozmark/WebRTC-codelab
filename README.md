@@ -36,7 +36,7 @@ Using git, clone the codelab repository onto your development computer. If you h
 
 ## Step 1: Create a blank HTML5 document
 
-Complete example: [complete/step1.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step1.html).
+Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/raw/5fd622f74f07ed260ef66a8bf291203fe0e3a1e4/complete/step1.html).
 
 1. Create a bare-bones HTML document.
 2. Run that from localhost (see server suggestions above).
@@ -315,5 +315,5 @@ Abstraction libraries such as SimpleWebRTC make it simple to create WebRTC appli
 
 ### Bonus points
 
-1. Find a WebRTC library for RTCDataChannel.
+1. Find a WebRTC library for RTCDataChannel. (Hint: there's one named PeerJS!)
 2. Set up your own signalling server using the SimpleWebRTC server [signalmaster](https://github.com/andyet/signalmaster).
