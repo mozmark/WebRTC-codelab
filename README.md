@@ -290,8 +290,11 @@ In this step, we build a video chat client, using the signalling server we creat
 
 ## Step 7: Putting it all together: RTCPeerConnection + RTCDataChannel + signalling
 
-Complete example: [complete/step7.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step7.html).
+This is a DIY step!
 
+1. Take a look at the app you built in step 4.
+
+2. Add the RTCDataChannel code to your Step 6 app to create a complete application.
 
 
 ### Bonus points
