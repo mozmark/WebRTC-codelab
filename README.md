@@ -149,7 +149,7 @@ This code does a lot!
 
 ## Step 4: Stream arbitrary data with RTCDataChannel
 
-Complete example: [complete/step4.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step4.html).
+Complete example: [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/3df9645b42073f5daf11d7cb7a732dbb73988d20/complete/step4.html?at=master).
 
 For this step, we'll use RTCDataChannel to send text between two textareas on the same page: not very useful, except to demonstrate how the API works.
 
@@ -306,7 +306,7 @@ This is a DIY step!
 
 ## Step 8: Use a WebRTC library: SimpleWebRTC
 
-Complete example: [complete/step8.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step8.html).
+Complete example: [complete/step8.html](https://bitbucket.org/webrtc/codelab/src/3df9645b42073f5daf11d7cb7a732dbb73988d20/complete/step8.html?at=master).
 
 Abstraction libraries such as SimpleWebRTC make it simple to create WebRTC applications.
 
