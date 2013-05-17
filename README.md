@@ -43,7 +43,7 @@ Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/src
 
 ## Step 2: Get video from your webcam
 
-Complete example: [complete/step2.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step2.html).
+Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src/3df9645b42073f5daf11d7cb7a732dbb73988d20/complete/step2.html?at=master).
 
 1. Add a video element to your page.
 2. Add the following JavaScript to the script element on your page, to enable getUserMedia() to set the source of the video from the web cam:
