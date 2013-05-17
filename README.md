@@ -36,7 +36,7 @@ Using git, clone the codelab repository onto your development computer. If you h
 
 ## Step 1: Create a blank HTML5 document
 
-Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/src/5fd622f74f07/complete/step1.html?at=master).
+Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/src/3df9645b42073f5daf11d7cb7a732dbb73988d20/complete/step1.html?at=master).
 
 1. Create a bare-bones HTML document.
 2. Run that from localhost (see server suggestions above).
