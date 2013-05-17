@@ -39,6 +39,7 @@ Using git, clone the codelab repository onto your development computer. If you h
 Complete example: [complete/step1.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step1.html).
 
 1. Create a bare-bones HTML document.
+2. Run that from localhost (see server suggestions above).
 
 ## Step 2: Get video from your webcam
 
