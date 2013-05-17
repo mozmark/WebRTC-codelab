@@ -107,7 +107,7 @@ For example:
 
 ## Step 3: Stream video with RTCPeerConnection
 
-Complete example: [complete/step3.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step3.html).
+Complete example: [complete/step3.html](https://bitbucket.org/webrtc/codelab/src/3df9645b42073f5daf11d7cb7a732dbb73988d20/complete/step3.html?at=master).
 
 RTCPeerConnection is the WebRTC API for video and audio calling.
 
