@@ -206,7 +206,7 @@ Notice the use of constraints.
 
 ## Step 5: Set up a signalling server and exchange messages
 
-Complete example: [complete/step5](https://bitbucket.org/webrtc/webrtc-codelab/src/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step5?at=master).
+Complete example: [complete/step5](https://bitbucket.org/webrtc/codelab/src/6daf0496dc78e1704cb9b71b9e897e829a347561/complete/step5?at=master).
 
 In the examples already completed, signalling between RTCPeerconnection objects happens on the same page: the process of exchanging candidate information and offer/answer messages.
 
@@ -262,7 +262,7 @@ Our simple WebRTC application will only permit a maximum of two peers to share a
 
 ## Step 6: RTCPeerConnection with messaging
 
-Complete example: [complete/step6](https://bitbucket.org/webrtc/webrtc-codelab/src/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step6?at=master).
+Complete example: [complete/step6](https://bitbucket.org/webrtc/codelab/src/6daf0496dc78e1704cb9b71b9e897e829a347561/complete/step6?at=master).
 
 In this step, we build a video chat client, using the signalling server we created in Step 5 and the RTCPeerConnection code from Step 3.
 
