@@ -36,13 +36,13 @@ Using git, clone the codelab repository onto your development computer. If you h
 
 ## Step 1: Create a blank HTML5 document
 
-Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step1.html).
+Complete example: [complete/step1.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step1.html).
 
 1. Create a bare-bones HTML document.
 
 ## Step 2: Get video from your webcam
 
-Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step2.html).
+Complete example: [complete/step2.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step2.html).
 
 1. Add a video element to your page.
 2. Add the following JavaScript to the script element on your page, to enable getUserMedia() to set the source of the video from the web cam:
@@ -105,7 +105,7 @@ For example:
 
 ## Step 3: Stream video with RTCPeerConnection
 
-Complete example: [complete/step3.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step3.html).
+Complete example: [complete/step3.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step3.html).
 
 RTCPeerConnection is the WebRTC API for video and audio calling.
 
@@ -125,7 +125,7 @@ This example sets up a connection between two peers on the same page. Not much u
           <button id="hangupButton">Hang Up</button>
         </div>
 
-3. Add the JavaScript from [complete/step3.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step3.html).
+3. Add the JavaScript from [complete/step3.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step2.html).
 
 ### Explanation
 
@@ -147,7 +147,7 @@ This code does a lot!
 
 ## Step 4: Stream arbitrary data with RTCDataChannel
 
-Complete example: [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step4.html).
+Complete example: [complete/step4.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step4.html).
 
 For this step, we'll use RTCDataChannel to send text between two textareas on the same page: not very useful, except to demonstrate how the API works.
 
@@ -162,7 +162,7 @@ For this step, we'll use RTCDataChannel to send text between two textareas on th
           <button id="closeButton">Stop</button>
         </div>
 
-3. Add the JavaScript from [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step3.html).
+3. Add the JavaScript from [complete/step4.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step4.html).
 
 ### Explanation
 
@@ -203,6 +203,8 @@ Notice the use of constraints.
 4. Test the page on a mobile device.
 
 ## Step 5: Set up a signalling server and exchange messages
+
+Complete example: [complete/step5](https://bitbucket.org/webrtc/webrtc-codelab/src/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step5?at=master).
 
 In the examples already completed, signalling between RTCPeerconnection objects happens on the same page: the process of exchanging candidate information and offer/answer messages.
 
@@ -258,7 +260,7 @@ Our simple WebRTC application will only permit a maximum of two peers to share a
 
 ## Step 6: RTCPeerConnection with messaging
 
-Complete example: [complete/step6.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step7.html).
+Complete example: [complete/step6](https://bitbucket.org/webrtc/webrtc-codelab/src/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step6?at=master).
 
 In this step, we build a video chat client, using the signalling server we created in Step 5 and the RTCPeerConnection code from Step 3.
 
