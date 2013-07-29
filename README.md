@@ -133,9 +133,12 @@ This example sets up a connection between two peers on the same page. Not much u
 
 This code does a lot!
 
-* Get and share local and remote descriptions: metadata (in SDP format) of local media conditions.
-* Get and share ICE candidates: network information.
+* Get and share local and remote descriptions: metadata (in SDP[^SDP] format) of local media conditions.
+* Get and share ICE[^ICE] candidates: network information.
 * Pass the local stream to the remote _RTCPeerConnection_.
+
+[^SDP]: [Session Description Protocol](http://en.wikipedia.org/wiki/Session_Description_Protocol)
+[^ICE]: [Interactive Connectivity Establishment Protocol](http://en.wikipedia.org/wiki/Interactive_Connectivity_Establishment)
 
 ### Bonus points
 
