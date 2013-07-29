@@ -118,8 +118,8 @@ This example sets up a connection between two peers on the same page. Not much u
 2. Edit the HTML so there are two video elements and three buttons: Start, Call and Hang Up:
 
 
-        <video id="vid1" autoplay></video>
-        <video id="vid2" autoplay></video>
+        <video id="localVideo" autoplay></video>
+        <video id="remoteVideo" autoplay></video>
 
         <div>
           <button id="startButton">Start</button>
