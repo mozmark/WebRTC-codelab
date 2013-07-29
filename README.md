@@ -36,14 +36,14 @@ Using git, clone the codelab repository onto your development computer. If you h
 
 ## Step 1: Create a blank HTML5 document
 
-Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/src/3df9645b42073f5daf11d7cb7a732dbb73988d20/complete/step1.html?at=master).
+Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step1.html).
 
 1. Create a bare-bones HTML document.
 2. Run that from localhost (see server suggestions above).
 
 ## Step 2: Get video from your webcam
 
-Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src/3df9645b42073f5daf11d7cb7a732dbb73988d20/complete/step2.html?at=master).
+Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step2.html).
 
 1. Add a video element to your page.
 2. Add the following JavaScript to the script element on your page, to enable getUserMedia() to set the source of the video from the web cam:
@@ -107,7 +107,7 @@ For example:
 
 ## Step 3: Stream video with RTCPeerConnection
 
-Complete example: [complete/step3.html](https://bitbucket.org/webrtc/codelab/src/3df9645b42073f5daf11d7cb7a732dbb73988d20/complete/step3.html?at=master).
+Complete example: [complete/step3.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step3.html).
 
 RTCPeerConnection is the WebRTC API for video and audio calling.
 
@@ -127,7 +127,7 @@ This example sets up a connection between two peers on the same page. Not much u
           <button id="hangupButton">Hang Up</button>
         </div>
 
-3. Add the JavaScript from [complete/step3.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step2.html).
+3. Add the JavaScript from [complete/step3.html](https://bitbucket.org/webrtc/codelab/raw/master/complete/step3.html).
 
 ### Explanation
 
@@ -152,7 +152,7 @@ This code does a lot!
 
 ## Step 4: Stream arbitrary data with RTCDataChannel
 
-Complete example: [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/3df9645b42073f5daf11d7cb7a732dbb73988d20/complete/step4.html?at=master).
+Complete example: [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step4.html).
 
 For this step, we'll use RTCDataChannel to send text between two textareas on the same page: not very useful, except to demonstrate how the API works.
 
@@ -167,7 +167,7 @@ For this step, we'll use RTCDataChannel to send text between two textareas on th
           <button id="closeButton">Stop</button>
         </div>
 
-3. Add the JavaScript from [complete/step4.html](https://bitbucket.org/webrtc/webrtc-codelab/raw/3f55e3f0c0f069ce9c7a8c2116cc42c9ec49fb6b/complete/step4.html).
+3. Add the JavaScript from [complete/step4.html](https://bitbucket.org/webrtc/codelab/raw/master/complete/step4.html).
 
 ### Explanation
 
@@ -209,7 +209,7 @@ Notice the use of constraints.
 
 ## Step 5: Set up a signalling server and exchange messages
 
-Complete example: [complete/step5](https://bitbucket.org/webrtc/codelab/src/6daf0496dc78e1704cb9b71b9e897e829a347561/complete/step5?at=master).
+Complete example: [complete/step5](https://bitbucket.org/webrtc/codelab/src/master/complete/step5).
 
 In the examples already completed, signalling between RTCPeerconnection objects happens on the same page: the process of exchanging candidate information and offer/answer messages.
 
@@ -265,7 +265,7 @@ Our simple WebRTC application will only permit a maximum of two peers to share a
 
 ## Step 6: RTCPeerConnection with messaging
 
-Complete example: [complete/step6](https://bitbucket.org/webrtc/codelab/src/6daf0496dc78e1704cb9b71b9e897e829a347561/complete/step6?at=master).
+Complete example: [complete/step6](https://bitbucket.org/webrtc/codelab/src/master/complete/step6).
 
 In this step, we build a video chat client, using the signalling server we created in Step 5 and the RTCPeerConnection code from Step 3.
 
@@ -309,11 +309,11 @@ This is a DIY step!
 
 ## Step 8: Use a WebRTC library: SimpleWebRTC
 
-Complete example: [complete/step8.html](https://bitbucket.org/webrtc/codelab/src/3df9645b42073f5daf11d7cb7a732dbb73988d20/complete/step8.html?at=master).
+Complete example: [complete/step8.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step8.html).
 
 Abstraction libraries such as SimpleWebRTC make it simple to create WebRTC applications.
 
-1. Create a new document using the code from [complete/step8.html](https://bitbucket.org/webrtc/codelab/src/9681a4376644/complete/step8.html).
+1. Create a new document using the code from [complete/step8.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step8.html).
 2. Open the document in multiple windows or tab.
 
 ### Bonus points
