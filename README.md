@@ -22,7 +22,7 @@ Installed on your development machine:
 
 1. Google Chrome
 2. Code editor
-3. Web server such as [MAMP](http://mamp.info/en/downloads) or [XAMPP](http://apachefriends.org/en/xampp.html) -- or just run `python -m SimpleHTTPServer` in your application directory
+3. Web server such as [MAMP](http://mamp.info/en/downloads) or [XAMPP](http://apachefriends.org/en/xampp.html) -- or just run `python -m SimpleHTTPServer` in your application directory (or better start a [secure https server](http://www.piware.de/2011/01/creating-an-https-server-in-python/) to avoid having to "allow" the camera every time you reload the page with Chrome)
 4. Web cam
 5. git, in order to get the source code
 6. The [source code](https://bitbucket.org/webrtc/codelab/src)
