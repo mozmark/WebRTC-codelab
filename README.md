@@ -16,19 +16,21 @@ Basic knowledge:
 2. [git](http://git-scm.com/)
 3. [Chrome DevTools](https://developers.google.com/chrome-developer-tools/)
 
-Experience of [Node.js](http://nodejs.org/) and [socket.io](http://socket.io/) would also be useful
+Experience of [Node.js](http://nodejs.org/) and [socket.io](http://socket.io/) would also be useful.
 
 Installed on your development machine:
 
-1. Google Chrome
-2. Code editor
-3. Web server such as [MAMP](http://mamp.info/en/downloads) or [XAMPP](http://apachefriends.org/en/xampp.html) -- or just run `python -m SimpleHTTPServer` in your application directory (or better start a [secure https server](http://www.piware.de/2011/01/creating-an-https-server-in-python/) to avoid having to "allow" the camera every time you reload the page with Chrome)
-4. Web cam
-5. git, in order to get the source code
-6. The [source code](https://bitbucket.org/webrtc/codelab/src)
+1. Google Chrome.
+2. Code editor.
+3. Web server such as [MAMP](http://mamp.info/en/downloads) or [XAMPP](http://apachefriends.org/en/xampp.html) -- or just run `python -m SimpleHTTPServer` in your application directory (or better start a [secure HTTPS server](http://www.piware.de/2011/01/creating-an-https-server-in-python/) to avoid having to 'allow' the camera every time you reload the page in the browser).
+4. Web cam.
+5. git, in order to get the source code.
+6. The [source code](https://bitbucket.org/webrtc/codelab/src).
 7. Node.js with socket.io and node-static. (Node.js hosting would also be an advantage -- see below for some options.)
 
-It would also be useful to have an Android device with [Google Chrome Beta](https://play.google.com/store/apps/details?id=com.chrome.beta&hl=en) installed in order to try out the examples on mobile. To run WebRTC APIs on Chrome for Android, you must enable WebRTC from the chrome://flags page.
+*The instructions in this codelab assume you are using Mac OS, Linux or Windows. Unless you know what you're doing, it's probably easier not to attempt this codelab from a Chromebook!*
+
+It would also be useful to have an Android device with Google Chrome installed in order to try out the examples on mobile. To run WebRTC APIs on Chrome for Android, you must enable WebRTC from the chrome://flags page.
 
 ## Step 0: Get the code
 
@@ -39,7 +41,7 @@ Using git, clone the codelab repository onto your development computer. If you h
 Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step1.html).
 
 1. Create a bare-bones HTML document.
-2. Run that from localhost (see server suggestions above).
+2. Open that from localhost (see server suggestions above).
 
 ## Step 2: Get video from your webcam
 
@@ -133,7 +135,7 @@ This example sets up a connection between two peers on the same page. Not much u
 
 This code does a lot!
 
-* Get and share local and remote descriptions: metadata (in SDP[^SDP] format) of local media conditions.
+* Get and share local and remote descriptions: metadata about local media in SDP[^SDP] format.
 * Get and share ICE[^ICE] candidates: network information.
 * Pass the local stream to the remote _RTCPeerConnection_.
 
@@ -154,7 +156,7 @@ This code does a lot!
 
 Complete example: [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step4.html).
 
-For this step, we'll use RTCDataChannel to send text between two textareas on the same page: not very useful, except to demonstrate how the API works.
+For this step, we'll use RTCDataChannel to send text between two textareas on the same page. Not very useful, except to demonstrate how the API works.
 
 1. Create a new document and add the following HTML:
 
@@ -171,9 +173,9 @@ For this step, we'll use RTCDataChannel to send text between two textareas on th
 
 ### Explanation
 
-This code uses RTCPeerConnection to enable exchange of text messages.
+This code uses RTCPeerConnection and RTCDataChannel to enable exchange of text messages.
 
-A lot of the code is the same as for the RTCPeerConnection example. Additional code is as follows:
+Most of the code in this section is the same as for the RTCPeerConnection example. Additional code is as follows:
 
     function sendData(){
       var data = document.getElementById("dataChannelSend").value;
@@ -199,34 +201,47 @@ A lot of the code is the same as for the RTCPeerConnection example. Additional c
       document.getElementById("dataChannelReceive").value = event.data;
     }
 
+The syntax of RTCDataChannel is deliberately similar to WebSocket, with a `send()` method and a `message` event.
+
 Notice the use of constraints.
 
 ### Bonus points
 
-1. Try out RTCDataChannel file sharing with [Sharefest](http://www.sharefest.me/). When would RTCDataChannel need to be reliable, and when might performance be more important?
+1. Try out RTCDataChannel file sharing with [Sharefest](http://www.sharefest.me/). When would RTCDataChannel need to provide reliable delivery of data, and when might performance be more important -- even if that means losing some data?
 2. Use CSS to improve page layout, and add a placeholder attribute to the _dataChannelReceive_ textarea.
 4. Test the page on a mobile device.
 
-## Step 5: Set up a signalling server and exchange messages
+## Step 5: Set up a signaling server and exchange messages
 
 Complete example: [complete/step5](https://bitbucket.org/webrtc/codelab/src/master/complete/step5).
 
-In the examples already completed, signalling between RTCPeerconnection objects happens on the same page: the process of exchanging candidate information and offer/answer messages.
+RTCPeerConnection instances need to exchange metadata in order to set up and maintain a WebRTC 'call':
 
-In the real world, a server is required to enable signalling between WebRTC clients on different devices.
+* Candidate (network) information.
+* _Offer_ and _answer_ messages providing information about media such as resolution and codecs.
 
-In this step we'll build a simple Node.js messaging server, using socket.io Node module and JavaScript library for messaging. Experience of [Node.js](http://nodejs.org/) and [socket.io](http://socket.io/) will be useful, but not crucial. In this example, the server is _server.js_ and the client is _index.html_.
+In other words, an exchange of metadata is required before peer-to-peer audio, video or data streaming can take place. This process is called _signaling_.
 
-The server application in this step has two tasks.
+In the examples already completed, the 'sender' and 'receiver' RTCPeerConnection objects are on the same page, so signaling is simply a matter of passing objects between methods.
+
+In a real world application, the sender and receiver RTCPeerConnections are not on the same page, and we need a way for them to communicate metadata.
+
+For this, we use a signaling server: a server that can exchange messages between a WebRTC app (client) running in one browser and a client in another browser. The actual messages are stringified JavaScript objects.
+
+**To reiterate: metadata exchange between WebRTC clients (via a signaling server) is required for RTCPeerConnection to to do audio, video and data streaming (peer to peer).**
+
+In this step we'll build a simple Node.js signaling server, using the socket.io Node module and JavaScript library for messaging. Experience of [Node.js](http://nodejs.org/) and [socket.io](http://socket.io/) will be useful, but not crucial -- the messaging components are very simple. In this example, the server (the Node app) is _server.js_ and the client (the web app) is _index.html_.
+
+The Node server application in this step has two tasks.
 
 To act as a messaging intermediary:
 
     socket.on('message', function (message) {
       log('Got message: ', message);
-      socket.broadcast.emit('message', message); // should be room only
+      socket.broadcast.emit('message', message);
     });
 
-To manage 'rooms':
+To manage WebRTC video chat 'rooms':
 
     if (numClients == 0){
       socket.join(room);
@@ -241,9 +256,16 @@ To manage 'rooms':
 
 Our simple WebRTC application will only permit a maximum of two peers to share a room.
 
-1. Ensure you have Node, socket.io and [node-static](https://github.com/cloudhead/node-static) installed.
+1. Ensure you have Node, socket.io and [node-static](https://github.com/cloudhead/node-static) installed. Node can be downloaded from [nodejs.org](http://nodejs.org/); installation is straightforward and quick. To install socket.io and node-static, run Node Package Manager from a terminal in your application directory:
 
-2. Using the code from the _step 5_ directory, run the server (_server.js_). To start the server, from your application directory run the following:
+
+        npm install socket.io
+        npm install node-static
+
+
+  (You don't need to learn about node-static for this exercise: it just makes the server simpler.)
+
+2. Using the code from the [step 5](complete/step5) directory, run the server (_server.js_). To start the server, run the following command from a terminal in your application directory:
 
         node server.js
 
@@ -255,9 +277,9 @@ Our simple WebRTC application will only permit a maximum of two peers to share a
 
 1. Try deploying your messaging server so you can access it via a public URL. (Free trials and easy deployment options for Node are available on several hosting sites including [nodejitsu](http://www.nodejitsu.com), [heroku](http://www.heroku.com) and [nodester](http://www.nodester.com).)
 
-2. What alternative messaging mechanisms are available? (Take a look at [apprtc.appspot.com](http://www.apprtc.appspot.com).) What problems might we encounter using 'pure' WebSocket? (Take a look at Arnout Kazemier's presentation, [WebSuckets](https://speakerdeck.com/3rdeden/websuckets).)
+2. What alternative messaging mechanisms are available? (Take a look at [apprtc.appspot.com](http://apprtc.appspot.com).) What problems might we encounter using 'pure' WebSocket? (Take a look at Arnout Kazemier's presentation, [WebSuckets](https://speakerdeck.com/3rdeden/websuckets).)
 
-3. What issues might be involved with scaling this application? Can to develop a method for testing thousands or millions of simultaneous room requests.
+3. What issues might be involved with scaling this application? Can you develop a method for testing thousands or millions of simultaneous room requests.
 
 4. Try out Remy Sharp's tool [nodemon](https://github.com/remy/nodemon). This monitors any changes in your Node.js application and automatically restarts the server when changes are saved.
 
@@ -267,11 +289,13 @@ Our simple WebRTC application will only permit a maximum of two peers to share a
 
 Complete example: [complete/step6](https://bitbucket.org/webrtc/codelab/src/master/complete/step6).
 
-In this step, we build a video chat client, using the signalling server we created in Step 5 and the RTCPeerConnection code from Step 3.
+In this step, we build a video chat client, using the signaling server we created in Step 5 and the RTCPeerConnection code from Step 3.
+
+**This step users [adapter.js](https://bitbucket.org/webrtc/codelab/src/master/complete/step6/js/lib/adapter.js). This is a [JavaScript shim](http://stackoverflow.com/questions/6599815/what-is-the-difference-between-a-shim-and-a-polyfill), maintained Google, that abstracts away browser differences and spec changes.**
 
 1. Ensure you have Node, socket.io and [node-static](https://github.com/cloudhead/node-static) installed and working. If in doubt, try the code in Step 5.
 
-2. Using the code from the _step 6_ directory, run the server (_server.js_). To start the server, from your application directory run the following:
+2. Using the code from the _step 6_ directory, run the server (_server.js_). To start the server, run the following from your application directory:
 
         node server.js
 
@@ -281,7 +305,7 @@ In this step, we build a video chat client, using the signalling server we creat
 
 ### Bonus points
 
-1. This application only supports one-to-one video chat. How might you change the design to enable more than one person to share the same video chat room? (Look at [conversat.io](http://conversat.io) for an example of this in action.)
+1. This application only supports one-to-one video chat. How might you change the design to enable more than one person to share the same video chat room? (Look at [talky.io](http://talky.io) for an example of this in action.)
 
 2. The example has the room name _foo_ hard coded. What would be the best way to enable other room names?
 
@@ -291,7 +315,7 @@ In this step, we build a video chat client, using the signalling server we creat
 
 5. How would users share the room name? Try to build an alternative to sharing room names.
 
-## Step 7: Putting it all together: RTCPeerConnection + RTCDataChannel + signalling
+## Step 7: Putting it all together: RTCPeerConnection + RTCDataChannel + signaling
 
 This is a DIY step!
 
@@ -319,4 +343,4 @@ Abstraction libraries such as SimpleWebRTC make it simple to create WebRTC appli
 ### Bonus points
 
 1. Find a WebRTC library for RTCDataChannel. (Hint: there's one named PeerJS!)
-2. Set up your own signalling server using the SimpleWebRTC server [signalmaster](https://github.com/andyet/signalmaster).
+2. Set up your own signaling server using the SimpleWebRTC server [signalmaster](https://github.com/andyet/signalmaster).
