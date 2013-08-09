@@ -291,7 +291,7 @@ Complete example: [complete/step6](https://bitbucket.org/webrtc/codelab/src/mast
 
 In this step, we build a video chat client, using the signaling server we created in Step 5 and the RTCPeerConnection code from Step 3.
 
-**This step users [adapter.js](https://bitbucket.org/webrtc/codelab/src/master/complete/step6/js/lib/adapter.js). This is a [JavaScript shim](http://stackoverflow.com/questions/6599815/what-is-the-difference-between-a-shim-and-a-polyfill), maintained Google, that abstracts away browser differences and spec changes.**
+**This step users [adapter.js](https://bitbucket.org/webrtc/codelab/src/master/complete/step6/js/lib/adapter.js). This is a [JavaScript shim](http://stackoverflow.com/questions/6599815/what-is-the-difference-between-a-shim-and-a-polyfill), maintained by Google, that abstracts away browser differences and spec changes.**
 
 1. Ensure you have Node, socket.io and [node-static](https://github.com/cloudhead/node-static) installed and working. If in doubt, try the code in Step 5.
 
@@ -299,7 +299,7 @@ In this step, we build a video chat client, using the signaling server we create
 
         node server.js
 
-3. From your browser, open _localhost:2013_. Open a new tab page or window in any browser and open _localhost:2013_.
+3. From your browser, open [localhost:2013](http://localhost:2013). Open a new tab page or window and open [localhost:2013](http://localhost:2013) again.
 
 4. View logging from the Chrome DevTools console and WebRTC debug information from chrome://webrtc-internals.
 

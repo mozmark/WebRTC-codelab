@@ -1,16 +1,14 @@
 'use strict';
 
 var isChannelReady;
-var isInitiator;
-var isStarted;
+var isInitiator = false;
+var isStarted = false;
 var localStream;
 var pc;
 var remoteStream;
 var turnReady;
 
-var pc_config = webrtcDetectedBrowser === 'firefox' ?
-  {'iceServers':[{'url':'stun:23.21.150.121'}]} : // number IP
-  {'iceServers': [{'url': 'stun:stun.l.google.com:19302'}]};
+var pc_config = {'iceServers': [{'url': 'stun:stun.l.google.com:19302'}]};
 
 var pc_constraints = {'optional': [{'DtlsSrtpKeyAgreement': true}]};
 
@@ -63,12 +61,15 @@ socket.on('log', function (array){
 ////////////////////////////////////////////////
 
 function sendMessage(message){
-	console.log('Sending message: ', message);
+	console.log('Client sending message: ', message);
+  // if (typeof message === 'object') {
+  //   message = JSON.stringify(message);
+  // }
   socket.emit('message', message);
 }
 
 socket.on('message', function (message){
-  console.log('Received message:', message);
+  console.log('Client received message:', message);
   if (message === 'got user media') {
   	maybeStart();
   } else if (message.type === 'offer') {
@@ -80,8 +81,10 @@ socket.on('message', function (message){
   } else if (message.type === 'answer' && isStarted) {
     pc.setRemoteDescription(new RTCSessionDescription(message));
   } else if (message.type === 'candidate' && isStarted) {
-    var candidate = new RTCIceCandidate({sdpMLineIndex:message.label,
-      candidate:message.candidate});
+    var candidate = new RTCIceCandidate({
+      sdpMLineIndex: message.label,
+      candidate: message.candidate
+    });
     pc.addIceCandidate(candidate);
   } else if (message === 'bye' && isStarted) {
     handleRemoteHangup();
@@ -94,9 +97,9 @@ var localVideo = document.querySelector('#localVideo');
 var remoteVideo = document.querySelector('#remoteVideo');
 
 function handleUserMedia(stream) {
-  localStream = stream;
-  attachMediaStream(localVideo, stream);
   console.log('Adding local stream.');
+  localVideo.src = window.URL.createObjectURL(stream);
+  localStream = stream;
   sendMessage('got user media');
   if (isInitiator) {
     maybeStart();
@@ -108,17 +111,18 @@ function handleUserMediaError(error){
 }
 
 var constraints = {video: true};
-
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 navigator.getUserMedia(constraints, handleUserMedia, handleUserMediaError);
 console.log('Getting user media with constraints', constraints);
 
 requestTurn('https://computeengineondemand.appspot.com/turn?username=41784574&key=4080218913');
 
 function maybeStart() {
-  if (!isStarted && localStream && isChannelReady) {
+  if (!isStarted && typeof localStream != 'undefined' && isChannelReady) {
     createPeerConnection();
     pc.addStream(localStream);
     isStarted = true;
+    console.log('isInitiator', isInitiator);
     if (isInitiator) {
       doCall();
     }
@@ -133,18 +137,16 @@ window.onbeforeunload = function(e){
 
 function createPeerConnection() {
   try {
-    pc = new RTCPeerConnection(pc_config, pc_constraints);
+    pc = new webkitRTCPeerConnection(null);
     pc.onicecandidate = handleIceCandidate;
-    console.log('Created RTCPeerConnnection with:\n' +
-      '  config: \'' + JSON.stringify(pc_config) + '\';\n' +
-      '  constraints: \'' + JSON.stringify(pc_constraints) + '\'.');
+    pc.onaddstream = handleRemoteStreamAdded;
+    pc.onremovestream = handleRemoteStreamRemoved;
+    console.log('Created RTCPeerConnnection');
   } catch (e) {
     console.log('Failed to create PeerConnection, exception: ' + e.message);
     alert('Cannot create RTCPeerConnection object.');
       return;
   }
-  pc.onaddstream = handleRemoteStreamAdded;
-  pc.onremovestream = handleRemoteStreamRemoved;
 }
 
 function handleIceCandidate(event) {
@@ -162,26 +164,17 @@ function handleIceCandidate(event) {
 
 function handleRemoteStreamAdded(event) {
   console.log('Remote stream added.');
-//  reattachMediaStream(miniVideo, localVideo);
-  attachMediaStream(remoteVideo, event.stream);
+  remoteVideo.src = window.URL.createObjectURL(event.stream);
   remoteStream = event.stream;
-//  waitForRemoteVideo();
+}
+
+function handleCreateOfferError(event){
+  console.log('createOffer() error: ', e);
 }
 
 function doCall() {
-  var constraints = {'optional': [], 'mandatory': {'MozDontOfferDataChannel': true}};
-  // temporary measure to remove Moz* constraints in Chrome
-  if (webrtcDetectedBrowser === 'chrome') {
-    for (var prop in constraints.mandatory) {
-      if (prop.indexOf('Moz') !== -1) {
-        delete constraints.mandatory[prop];
-      }
-     }
-   }
-  constraints = mergeConstraints(constraints, sdpConstraints);
-  console.log('Sending offer to peer, with constraints: \n' +
-    '  \'' + JSON.stringify(constraints) + '\'.');
-  pc.createOffer(setLocalAndSendMessage, null, constraints);
+  console.log('Sending offer to peer');
+  pc.createOffer(setLocalAndSendMessage, handleCreateOfferError);
 }
 
 function doAnswer() {
@@ -189,19 +182,11 @@ function doAnswer() {
   pc.createAnswer(setLocalAndSendMessage, null, sdpConstraints);
 }
 
-function mergeConstraints(cons1, cons2) {
-  var merged = cons1;
-  for (var name in cons2.mandatory) {
-    merged.mandatory[name] = cons2.mandatory[name];
-  }
-  merged.optional.concat(cons2.optional);
-  return merged;
-}
-
 function setLocalAndSendMessage(sessionDescription) {
   // Set Opus as the preferred codec in SDP if Opus is present.
   sessionDescription.sdp = preferOpus(sessionDescription.sdp);
   pc.setLocalDescription(sessionDescription);
+  console.log('setLocalAndSendMessage sending message' , sessionDescription);
   sendMessage(sessionDescription);
 }
 
@@ -236,11 +221,10 @@ function requestTurn(turn_url) {
 
 function handleRemoteStreamAdded(event) {
   console.log('Remote stream added.');
- // reattachMediaStream(miniVideo, localVideo);
-  attachMediaStream(remoteVideo, event.stream);
+  remoteVideo.src = window.URL.createObjectURL(event.stream);
   remoteStream = event.stream;
-//  waitForRemoteVideo();
 }
+
 function handleRemoteStreamRemoved(event) {
   console.log('Remote stream removed. Event: ', event);
 }
@@ -252,9 +236,9 @@ function hangup() {
 }
 
 function handleRemoteHangup() {
-  console.log('Session terminated.');
-  stop();
-  isInitiator = false;
+//  console.log('Session terminated.');
+  // stop();
+  // isInitiator = false;
 }
 
 function stop() {
