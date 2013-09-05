@@ -109,7 +109,7 @@ function handleUserMediaError(error){
 
 var constraints = {video: true};
 
-navigator.getUserMedia(constraints, handleUserMedia, handleUserMediaError);
+getUserMedia(constraints, handleUserMedia, handleUserMediaError);
 console.log('Getting user media with constraints', constraints);
 
 requestTurn('https://computeengineondemand.appspot.com/turn?username=41784574&key=4080218913');
