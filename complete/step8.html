@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://simplewebrtc.com/latest.js"></script>
 </head>
 
 <body>
@@ -8,10 +9,9 @@
 <div id="localVideo"></div>
 <div id="remoteVideo"></div>
 
-<script src="http://simplewebrtc.com/latest.js"></script>
 
 <script>
-var webrtc = new WebRTC({
+var webrtc = new SimpleWebRTC({
 	localVideoEl: 'localVideo',
 	remoteVideosEl: 'remoteVideo',
 	autoRequestMedia: true
