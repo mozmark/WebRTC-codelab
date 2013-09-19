@@ -5,7 +5,7 @@ room = prompt("Enter room name:");
 var socket = io.connect();
 
 if (room !== "") {
-  console.log('Joining ', room);
+  console.log('Joining room ' + room);
   socket.emit('create or join', room);
 }
 
@@ -19,7 +19,7 @@ socket.on('empty', function (room){
 });
 
 socket.on('join', function (room){
-  console.log('Request to join ' + room);
+  console.log('Making request to join room ' + room);
   console.log('You are the initiator!');
 });
 

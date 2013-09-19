@@ -5,18 +5,6 @@ var app = http.createServer(function (req, res) {
   file.serve(req, res);
 }).listen(2013);
 
-
-// var express = require('express');
-// var app = express();
-// console.log(express.static(__dirname + '/js'));
-// app.use(express.static(__dirname + '/js'));
-// app.all('*', function(req, res){
-// 	res.sendfile("index.html");
-// });
-
-// app.listen(9000);
-
-
 var io = require('socket.io').listen(app);
 io.sockets.on('connection', function (socket){
 
@@ -30,7 +18,8 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('message', function (message) {
 		log('Got message: ', message);
-		socket.broadcast.emit('message', message); // should be room only
+    // For a real app, should be room only (not broadcast)
+		socket.broadcast.emit('message', message);
 	});
 
 	socket.on('create or join', function (room) {
