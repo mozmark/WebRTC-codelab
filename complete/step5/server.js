@@ -9,7 +9,7 @@ var io = require('socket.io').listen(app);
 
 io.sockets.on('connection', function (socket){
 
-  // convenience function to
+  // convenience function to log server messages on the client
 	function log(){
 		var array = [">>> Message from server: "];
 	  for (var i = 0; i < arguments.length; i++) {
