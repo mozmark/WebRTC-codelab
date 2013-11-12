@@ -8,6 +8,8 @@ This tutorial explains how to build a simple video and text chat application.
 
 For more information about WebRTC, see [Getting started with WebRTC](http://www.html5rocks.com/en/tutorials/webrtc/basics) on HTML5 Rocks.
 
+You can submit feedback about the WebRTC APIs at [bit.ly/webrtcfeedback](http://bit.ly/webrtcfeedback).
+
 ## Prerequisites
 
 Basic knowledge:
