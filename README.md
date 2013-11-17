@@ -34,7 +34,7 @@ Installed on your development machine:
 It would also be useful to have an Android device with Google Chrome installed in order to try out the examples on mobile. To run WebRTC APIs on Chrome for Android, you must enable WebRTC from the chrome://flags page.
 
 ## Running The Examples
-To run any of the provided examples provided in the `complete` directory of this repo simply cd into the specific example directory and run
+To run any of the examples provided in the `complete` directory of this repo simply cd into the specific example directory and run
 
 ```
 node server.js
