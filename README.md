@@ -22,7 +22,7 @@ Experience of [Node.js](http://nodejs.org/) and [socket.io](http://socket.io/) w
 
 Installed on your development machine:
 
-1. Google Chrome.
+1. Google Chrome or Firefox.
 1. Code editor.
 1. Web cam.
 1. git, in order to get the source code.
