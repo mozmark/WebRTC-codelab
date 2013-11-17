@@ -55,11 +55,9 @@ function gotStream(stream){
 function start() {
   trace("Requesting local stream");
   startButton.disabled = true;
-  navigator.getUserMedia = navigator.getUserMedia ||
-    navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-  navigator.getUserMedia({audio:true, video:true}, gotStream,
+  getUserMedia({audio:true, video:true}, gotStream,
     function(error) {
-      trace("navigator.getUserMedia error: ", error);
+      trace("getUserMedia error: ", error);
     });
 }
 

@@ -12,6 +12,8 @@
 <style>
 </style>
 
+    <script src='js/lib/adapter.js'></script>
+
 </head>
 
 <body>
@@ -44,7 +46,7 @@ function trace(text) {
 
 function createConnection() {
   var servers = null;
-  window.localPeerConnection = new webkitRTCPeerConnection(servers,
+  window.localPeerConnection = new RTCPeerConnection(servers,
     {optional: [{RtpDataChannels: true}]});
   trace('Created local peer connection object localPeerConnection');
 
@@ -62,14 +64,14 @@ function createConnection() {
   sendChannel.onopen = handleSendChannelStateChange;
   sendChannel.onclose = handleSendChannelStateChange;
 
-  window.remotePeerConnection = new webkitRTCPeerConnection(servers,
+  window.remotePeerConnection = new RTCPeerConnection(servers,
     {optional: [{RtpDataChannels: true}]});
   trace('Created remote peer connection object remotePeerConnection');
 
   remotePeerConnection.onicecandidate = gotRemoteIceCandidate;
   remotePeerConnection.ondatachannel = gotReceiveChannel;
 
-  localPeerConnection.createOffer(gotLocalDescription);
+  localPeerConnection.createOffer(gotLocalDescription,_noop);
   startButton.disabled = true;
   closeButton.disabled = false;
 }
@@ -104,7 +106,7 @@ function gotLocalDescription(desc) {
   localPeerConnection.setLocalDescription(desc);
   trace('Offer from localPeerConnection \n' + desc.sdp);
   remotePeerConnection.setRemoteDescription(desc);
-  remotePeerConnection.createAnswer(gotRemoteDescription);
+  remotePeerConnection.createAnswer(gotRemoteDescription,_noop);
 }
 
 function gotRemoteDescription(desc) {
@@ -161,6 +163,10 @@ function handleSendChannelStateChange() {
 function handleReceiveChannelStateChange() {
   var readyState = receiveChannel.readyState;
   trace('Receive channel state is: ' + readyState);
+}
+
+function _noop(){
+    return;
 }
 </script>
 
