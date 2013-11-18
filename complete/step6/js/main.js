@@ -139,7 +139,7 @@ window.onbeforeunload = function(e){
 
 function createPeerConnection() {
   try {
-    pc = new webkitRTCPeerConnection(null);
+    pc = new RTCPeerConnection(null);
     pc.onicecandidate = handleIceCandidate;
     pc.onaddstream = handleRemoteStreamAdded;
     pc.onremovestream = handleRemoteStreamRemoved;

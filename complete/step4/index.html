@@ -71,7 +71,7 @@ function createConnection() {
   remotePeerConnection.onicecandidate = gotRemoteIceCandidate;
   remotePeerConnection.ondatachannel = gotReceiveChannel;
 
-  localPeerConnection.createOffer(gotLocalDescription,_noop);
+  localPeerConnection.createOffer(gotLocalDescription,handleError);
   startButton.disabled = true;
   closeButton.disabled = false;
 }
@@ -106,7 +106,7 @@ function gotLocalDescription(desc) {
   localPeerConnection.setLocalDescription(desc);
   trace('Offer from localPeerConnection \n' + desc.sdp);
   remotePeerConnection.setRemoteDescription(desc);
-  remotePeerConnection.createAnswer(gotRemoteDescription,_noop);
+  remotePeerConnection.createAnswer(gotRemoteDescription,handleError);
 }
 
 function gotRemoteDescription(desc) {
@@ -165,9 +165,8 @@ function handleReceiveChannelStateChange() {
   trace('Receive channel state is: ' + readyState);
 }
 
-function _noop(){
-    return;
-}
+function handleError(){}
+
 </script>
 
 </body>

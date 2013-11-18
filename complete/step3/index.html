@@ -77,25 +77,25 @@ function call() {
 
   var servers = null;
 
-  localPeerConnection = new webkitRTCPeerConnection(servers);
+  localPeerConnection = new RTCPeerConnection(servers);
   trace("Created local peer connection object localPeerConnection");
   localPeerConnection.onicecandidate = gotLocalIceCandidate;
 
-  remotePeerConnection = new webkitRTCPeerConnection(servers);
+  remotePeerConnection = new RTCPeerConnection(servers);
   trace("Created remote peer connection object remotePeerConnection");
   remotePeerConnection.onicecandidate = gotRemoteIceCandidate;
   remotePeerConnection.onaddstream = gotRemoteStream;
 
   localPeerConnection.addStream(localStream);
   trace("Added localStream to localPeerConnection");
-  localPeerConnection.createOffer(gotLocalDescription);
+  localPeerConnection.createOffer(gotLocalDescription,handleError);
 }
 
 function gotLocalDescription(description){
   localPeerConnection.setLocalDescription(description);
   trace("Offer from localPeerConnection: \n" + description.sdp);
   remotePeerConnection.setRemoteDescription(description);
-  remotePeerConnection.createAnswer(gotRemoteDescription);
+  remotePeerConnection.createAnswer(gotRemoteDescription,handleError);
 }
 
 function gotRemoteDescription(description){
@@ -132,6 +132,9 @@ function gotRemoteIceCandidate(event){
     trace("Remote ICE candidate: \n " + event.candidate.candidate);
   }
 }
+
+function handleError(){}
+
 </script>
 
 </body>
