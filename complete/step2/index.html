@@ -32,7 +32,7 @@ function successCallback(stream) {
 }
 
 function errorCallback(error){
-  console.log("navigator.getUserMedia error: ", error);
+  console.log("getUserMedia error: ", error);
 }
 
 getUserMedia(constraints, successCallback, errorCallback);
