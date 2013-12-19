@@ -1,6 +1,6 @@
 'use strict';
 
-var sendChannel, receiveChannel;
+var sendChannel;
 var sendButton = document.getElementById("sendButton");
 var sendTextarea = document.getElementById("dataChannelSend");
 var receiveTextarea = document.getElementById("dataChannelReceive");
@@ -162,6 +162,7 @@ function createPeerConnection() {
       // Reliable Data Channels not yet supported in Chrome
       sendChannel = pc.createDataChannel("sendDataChannel",
         {reliable: false});
+      sendChannel.onmessage = handleMessage;
       trace('Created send data channel');
     } catch (e) {
       alert('Failed to create data channel. ' +
@@ -203,10 +204,10 @@ function sendData() {
 
 function gotReceiveChannel(event) {
   trace('Receive Channel Callback');
-  receiveChannel = event.channel;
-  receiveChannel.onmessage = handleMessage;
-  receiveChannel.onopen = handleReceiveChannelStateChange;
-  receiveChannel.onclose = handleReceiveChannelStateChange;
+  sendChannel = event.channel;
+  sendChannel.onmessage = handleMessage;
+  sendChannel.onopen = handleReceiveChannelStateChange;
+  sendChannel.onclose = handleReceiveChannelStateChange;
 }
 
 function handleMessage(event) {
@@ -217,22 +218,25 @@ function handleMessage(event) {
 function handleSendChannelStateChange() {
   var readyState = sendChannel.readyState;
   trace('Send channel state is: ' + readyState);
-  if (readyState == "open") {
+  enableMessageInterface(readyState == "open");
+}
+
+function handleReceiveChannelStateChange() {
+  var readyState = sendChannel.readyState;
+  trace('Receive channel state is: ' + readyState);
+  enableMessageInterface(readyState == "open");
+}
+
+function enableMessageInterface(shouldEnable) {
+    if (shouldEnable) {
     dataChannelSend.disabled = false;
     dataChannelSend.focus();
     dataChannelSend.placeholder = "";
     sendButton.disabled = false;
-//    closeButton.disabled = false;
   } else {
     dataChannelSend.disabled = true;
     sendButton.disabled = true;
-//    closeButton.disabled = true;
   }
-}
-
-function handleReceiveChannelStateChange() {
-  var readyState = receiveChannel.readyState;
-  trace('Receive channel state is: ' + readyState);
 }
 
 function handleIceCandidate(event) {
