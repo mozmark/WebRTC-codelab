@@ -22,17 +22,25 @@ Experience of [Node.js](http://nodejs.org/) and [socket.io](http://socket.io/) w
 
 Installed on your development machine:
 
-1. Google Chrome.
-2. Code editor.
-3. Web server such as [MAMP](http://mamp.info/en/downloads) or [XAMPP](http://apachefriends.org/en/xampp.html) -- or just run `python -m SimpleHTTPServer` in your application directory (or better start a [secure HTTPS server](http://www.piware.de/2011/01/creating-an-https-server-in-python/) to avoid having to 'allow' the camera every time you reload the page in the browser).
-4. Web cam.
-5. git, in order to get the source code.
-6. The [source code](https://bitbucket.org/webrtc/codelab/src).
-7. Node.js with socket.io and node-static. (Node.js hosting would also be an advantage -- see below for some options.)
+1. Google Chrome or Firefox.
+1. Code editor.
+1. Web cam.
+1. git, in order to get the source code.
+1. The [source code](https://bitbucket.org/webrtc/codelab/src).
+1. Node.js with socket.io and node-static. (Node.js hosting would also be an advantage -- see below for some options.)
 
 *The instructions in this codelab assume you are using Mac OS, Linux or Windows. Unless you know what you're doing, it's probably easier not to attempt this codelab from a Chromebook!*
 
 It would also be useful to have an Android device with Google Chrome installed in order to try out the examples on mobile. To run WebRTC APIs on Chrome for Android, you must enable WebRTC from the chrome://flags page.
+
+## Running The Examples
+To run any of the examples provided in the `complete` directory of this repo simply cd into the specific step directory you'd like to see locally and run
+
+```
+node server.js
+```
+
+That directory's demo will then be live [here](http://localhost:2013).
 
 ## Step 0: Get the code
 
@@ -43,7 +51,9 @@ Using git, clone the codelab repository onto your development computer. If you h
 Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step1.html).
 
 1. Create a bare-bones HTML document.
-2. Open that from localhost (see server suggestions above).
+1. Test it out [locally](http://localhost:2013) (see instructions above on running demos).
+    - Why is there nothing on the screen?
+  
 
 ## Step 2: Get video from your webcam
 
@@ -70,7 +80,7 @@ Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src
 
         navigator.getUserMedia(constraints, successCallback, errorCallback);
 
-3. View your page from _localhost_.
+1. Test it out [locally](http://localhost:2013) (see instructions above on running demos).
 
 ### Explanation
 
@@ -132,6 +142,7 @@ This example sets up a connection between two peers on the same page. Not much u
         </div>
 
 3. Add the JavaScript from [complete/step3.html](https://bitbucket.org/webrtc/codelab/raw/master/complete/step3.html).
+1. Test it out [locally](http://localhost:2013) (see instructions above on running demos).
 
 ### Explanation
 
@@ -171,7 +182,8 @@ For this step, we'll use RTCDataChannel to send text between two textareas on th
           <button id="closeButton">Stop</button>
         </div>
 
-3. Add the JavaScript from [complete/step4.html](https://bitbucket.org/webrtc/codelab/raw/master/complete/step4.html).
+1. Add the JavaScript from [complete/step4.html](https://bitbucket.org/webrtc/codelab/raw/master/complete/step4.html).
+1. Test it out [locally](http://localhost:2013) (see instructions above on running demos).
 
 ### Explanation
 
@@ -184,7 +196,7 @@ Most of the code in this section is the same as for the RTCPeerConnection exampl
       sendChannel.send(data);
     }
     ...
-    localPeerConnection = new webkitRTCPeerConnection(servers,
+    localPeerConnection = new RTCPeerConnection(servers,
       {optional: [{RtpDataChannels: true}]});
     sendChannel = localPeerConnection.createDataChannel("sendDataChannel",
       {reliable: false});

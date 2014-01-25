@@ -107,12 +107,11 @@ function handleUserMedia(stream) {
 }
 
 function handleUserMediaError(error){
-  console.log('navigator.getUserMedia error: ', error);
+  console.log('getUserMedia error: ', error);
 }
 
 var constraints = {video: true};
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-navigator.getUserMedia(constraints, handleUserMedia, handleUserMediaError);
+getUserMedia(constraints, handleUserMedia, handleUserMediaError);
 
 console.log('Getting user media with constraints', constraints);
 
@@ -140,7 +139,7 @@ window.onbeforeunload = function(e){
 
 function createPeerConnection() {
   try {
-    pc = new webkitRTCPeerConnection(null);
+    pc = new RTCPeerConnection(null);
     pc.onicecandidate = handleIceCandidate;
     pc.onaddstream = handleRemoteStreamAdded;
     pc.onremovestream = handleRemoteStreamRemoved;
