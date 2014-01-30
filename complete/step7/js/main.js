@@ -123,7 +123,9 @@ var constraints = {video: true};
 getUserMedia(constraints, handleUserMedia, handleUserMediaError);
 console.log('Getting user media with constraints', constraints);
 
-requestTurn('https://computeengineondemand.appspot.com/turn?username=41784574&key=4080218913');
+if (location.hostname != "localhost") {
+  requestTurn('https://computeengineondemand.appspot.com/turn?username=41784574&key=4080218913');
+}
 
 function maybeStart() {
   if (!isStarted && localStream && isChannelReady) {
@@ -250,14 +252,6 @@ function handleIceCandidate(event) {
   } else {
     console.log('End of candidates.');
   }
-}
-
-function handleRemoteStreamAdded(event) {
-  console.log('Remote stream added.');
-//  reattachMediaStream(miniVideo, localVideo);
-  attachMediaStream(remoteVideo, event.stream);
-  remoteStream = event.stream;
-//  waitForRemoteVideo();
 }
 
 function doCall() {
