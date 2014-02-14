@@ -203,7 +203,7 @@ Most of the code in this section is the same as for the RTCPeerConnection exampl
     sendChannel.onopen = handleSendChannelStateChange;
     sendChannel.onclose = handleSendChannelStateChange;
     ...
-    remotePeerConnection = new webkitRTCPeerConnection(servers,
+    remotePeerConnection = new RTCPeerConnection(servers,
       {optional: [{RtpDataChannels: true}]});
     function gotReceiveChannel(event) {
       receiveChannel = event.channel;
@@ -242,7 +242,7 @@ In a real world application, the sender and receiver RTCPeerConnections are not 
 
 For this, we use a signaling server: a server that can exchange messages between a WebRTC app (client) running in one browser and a client in another browser. The actual messages are stringified JavaScript objects.
 
-**To reiterate: metadata exchange between WebRTC clients (via a signaling server) is required for RTCPeerConnection to to do audio, video and data streaming (peer to peer).**
+**To reiterate: metadata exchange between WebRTC clients (via a signaling server) is required for RTCPeerConnection to do audio, video and data streaming (peer to peer).**
 
 In this step we'll build a simple Node.js signaling server, using the socket.io Node module and JavaScript library for messaging. Experience of [Node.js](http://nodejs.org/) and [socket.io](http://socket.io/) will be useful, but not crucial -- the messaging components are very simple. In this example, the server (the Node app) is _server.js_ and the client (the web app) is _index.html_.
 
