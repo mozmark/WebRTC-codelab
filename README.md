@@ -48,7 +48,7 @@ Using git, clone the codelab repository onto your development computer. If you h
 
 ## Step 1: Create a blank HTML5 document
 
-Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step1.html).
+Complete example: [complete/step1](https://bitbucket.org/webrtc/codelab/src/master/complete/step1).
 
 1. Create a bare-bones HTML document.
 1. Test it out [locally](http://localhost:2013) (see instructions above on running demos).
@@ -57,7 +57,7 @@ Complete example: [complete/step1.html](https://bitbucket.org/webrtc/codelab/src
 
 ## Step 2: Get video from your webcam
 
-Complete example: [complete/step2.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step2.html).
+Complete example: [complete/step2](https://bitbucket.org/webrtc/codelab/src/master/complete/step2).
 
 1. Add a video element to your page.
 2. Add the following JavaScript to the script element on your page, to enable getUserMedia() to set the source of the video from the web cam:
@@ -121,7 +121,7 @@ For example:
 
 ## Step 3: Stream video with RTCPeerConnection
 
-Complete example: [complete/step3.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step3.html).
+Complete example: [complete/step3](https://bitbucket.org/webrtc/codelab/src/master/complete/step3).
 
 RTCPeerConnection is the WebRTC API for video and audio calling.
 
@@ -141,7 +141,7 @@ This example sets up a connection between two peers on the same page. Not much u
           <button id="hangupButton">Hang Up</button>
         </div>
 
-3. Add the JavaScript from [complete/step3.html](https://bitbucket.org/webrtc/codelab/raw/master/complete/step3.html).
+3. Add the JavaScript from [complete/step3/index.html](https://bitbucket.org/webrtc/codelab/raw/master/complete/step3/index.html).
 1. Test it out [locally](http://localhost:2013) (see instructions above on running demos).
 
 ### Explanation
@@ -167,7 +167,7 @@ This code does a lot!
 
 ## Step 4: Stream arbitrary data with RTCDataChannel
 
-Complete example: [complete/step4.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step4.html).
+Complete example: [complete/step4](https://bitbucket.org/webrtc/codelab/src/master/complete/step4).
 
 For this step, we'll use RTCDataChannel to send text between two textareas on the same page. Not very useful, except to demonstrate how the API works.
 
@@ -182,7 +182,7 @@ For this step, we'll use RTCDataChannel to send text between two textareas on th
           <button id="closeButton">Stop</button>
         </div>
 
-1. Add the JavaScript from [complete/step4.html](https://bitbucket.org/webrtc/codelab/raw/master/complete/step4.html).
+1. Add the JavaScript from [complete/step4/index.html](https://bitbucket.org/webrtc/codelab/raw/master/complete/step4/index.html).
 1. Test it out [locally](http://localhost:2013) (see instructions above on running demos).
 
 ### Explanation
@@ -347,11 +347,11 @@ This is a DIY step!
 
 ## Step 8: Use a WebRTC library: SimpleWebRTC
 
-Complete example: [complete/step8.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step8.html).
+Complete example: [complete/step8](https://bitbucket.org/webrtc/codelab/src/master/complete/step8).
 
 Abstraction libraries such as SimpleWebRTC make it simple to create WebRTC applications.
 
-1. Create a new document using the code from [complete/step8.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step8.html).
+1. Create a new document using the code from [complete/step8/index.html](https://bitbucket.org/webrtc/codelab/src/master/complete/step8/index.html).
 2. Open the document in multiple windows or tab.
 
 ### Bonus points
