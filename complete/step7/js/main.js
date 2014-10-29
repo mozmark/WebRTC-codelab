@@ -1,11 +1,6 @@
 'use strict';
 
 var sendChannel;
-var sendButton = document.getElementById("sendButton");
-var sendTextarea = document.getElementById("dataChannelSend");
-var receiveTextarea = document.getElementById("dataChannelReceive");
-
-sendButton.onclick = sendData;
 
 var isChannelReady;
 var isInitiator;
@@ -179,7 +174,8 @@ function createPeerConnection() {
 }
 
 function sendData() {
-  var data = sendTextarea.value;
+  // TODO: get some data to send
+  //var data = sendTextarea.value;
   sendChannel.send(data);
   trace('Sent data: ' + data);
 }
@@ -207,14 +203,20 @@ function sendData() {
 function gotReceiveChannel(event) {
   trace('Receive Channel Callback');
   sendChannel = event.channel;
-  sendChannel.onmessage = handleMessage;
+  sendChannel.onmessage = echoMessage;
   sendChannel.onopen = handleReceiveChannelStateChange;
   sendChannel.onclose = handleReceiveChannelStateChange;
 }
 
+function echoMessage(event) {
+  trace('Received message: ' + event.data);
+  sendChannel.send(event.data);
+}
+
 function handleMessage(event) {
   trace('Received message: ' + event.data);
-  receiveTextarea.value = event.data;
+  // TODO: something with the data we get
+  //receiveTextarea.value = event.data;
 }
 
 function handleSendChannelStateChange() {
@@ -234,10 +236,8 @@ function enableMessageInterface(shouldEnable) {
     dataChannelSend.disabled = false;
     dataChannelSend.focus();
     dataChannelSend.placeholder = "";
-    sendButton.disabled = false;
   } else {
     dataChannelSend.disabled = true;
-    sendButton.disabled = true;
   }
 }
 
@@ -255,7 +255,7 @@ function handleIceCandidate(event) {
 }
 
 function doCall() {
-  var constraints = {'optional': [], 'mandatory': {'MozDontOfferDataChannel': true}};
+  var constraints = {'optional': [], 'mandatory': {}};
   // temporary measure to remove Moz* constraints in Chrome
   if (webrtcDetectedBrowser === 'chrome') {
     for (var prop in constraints.mandatory) {
