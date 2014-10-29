@@ -113,6 +113,7 @@ function handleUserMediaError(error){
   console.log('getUserMedia error: ', error);
 }
 
+//var constraints = {video: true, audio: true};
 var constraints = {video: true};
 
 getUserMedia(constraints, handleUserMedia, handleUserMediaError);
@@ -160,6 +161,7 @@ function createPeerConnection() {
       sendChannel = pc.createDataChannel("sendDataChannel",
         {reliable: false});
       sendChannel.onmessage = handleMessage;
+      setInterval(sendTimerMessage, 1000);
       trace('Created send data channel');
     } catch (e) {
       alert('Failed to create data channel. ' +
@@ -208,13 +210,17 @@ function gotReceiveChannel(event) {
   sendChannel.onclose = handleReceiveChannelStateChange;
 }
 
+function sendTimerMessage(){
+  sendChannel.send(JSON.stringify({now: Date.now()}));
+}
+
 function echoMessage(event) {
-  trace('Received message: ' + event.data);
   sendChannel.send(event.data);
 }
 
 function handleMessage(event) {
-  trace('Received message: ' + event.data);
+  var info = JSON.parse(event.data);
+  console.log("time was "+(Date.now()-info.now)+" millis");
   // TODO: something with the data we get
   //receiveTextarea.value = event.data;
 }
@@ -267,12 +273,12 @@ function doCall() {
   constraints = mergeConstraints(constraints, sdpConstraints);
   console.log('Sending offer to peer, with constraints: \n' +
     '  \'' + JSON.stringify(constraints) + '\'.');
-  pc.createOffer(setLocalAndSendMessage, null, constraints);
+  pc.createOffer(setLocalAndSendMessage, function(){}, constraints);
 }
 
 function doAnswer() {
   console.log('Sending answer to peer.');
-  pc.createAnswer(setLocalAndSendMessage, null, sdpConstraints);
+  pc.createAnswer(setLocalAndSendMessage, function(){}, sdpConstraints);
 }
 
 function mergeConstraints(cons1, cons2) {
