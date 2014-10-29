@@ -15,6 +15,64 @@ var pc;
 var remoteStream;
 var turnReady;
 
+var robotConnected;
+var lastKeyCode;
+var lastKeyDate;
+
+function onKeydown(e) {
+  console.log( "keyCode for the key pressed: " + e.keyCode + "\n" );
+  lastKeyCode = e.keyCode;
+  lastKeyDate = Date.now();
+}
+
+function onRobotReceive(evt) {
+  console.log("received event");
+  console.log(evt);
+  console.log(evt.detail);
+  if (sendChannel) {
+    sendChannel.send(evt.detail);
+  }
+}
+
+function onRobotSetup() {
+  window.addEventListener('sockshovel:receive', onRobotReceive, false);
+  robotConnected = true;
+}
+
+function sendRobot(data) {
+  var evt = new CustomEvent('sockshovel:send', {detail: data});
+  document.dispatchEvent(evt);
+}
+
+function connectRobot() {
+  window.addEventListener('sockshovel:setup', onRobotSetup, false);
+  var evt = new CustomEvent('sockshovel:connect', {});
+  document.dispatchEvent(evt);
+}
+
+function onLoad(){
+  connectRobot();
+  document.body.addEventListener('keydown', onKeydown, false);
+  setInterval(function() {
+    if (sendChannel && Date.now() - lastKeyDate < 1000) {
+      switch(lastKeyCode) {
+      case 87:
+        sendChannel.send("a:150\n\rb:150\n\r");
+        break;
+      case 83:
+        sendChannel.send("a:106\n\rb:106\n\r");
+        break;
+      case 65:
+        sendChannel.send("a:116\n\rb:140\n\r");
+        break;
+      case 68:
+        sendChannel.send("a:140\n\rb:116\n\r");
+        break;
+      }
+    }
+  }, 500);
+}
+
 var pc_config = webrtcDetectedBrowser === 'firefox' ?
   {'iceServers':[{'url':'stun:23.21.150.121'}]} : // number IP
   {'iceServers': [{'url': 'stun:stun.l.google.com:19302'}]};
@@ -118,7 +176,8 @@ function handleUserMediaError(error){
   console.log('getUserMedia error: ', error);
 }
 
-var constraints = {video: true};
+var constraints = {video: true, audio: true};
+//var constraints = {audio: true};
 
 getUserMedia(constraints, handleUserMedia, handleUserMediaError);
 console.log('Getting user media with constraints', constraints);
@@ -145,9 +204,13 @@ window.onbeforeunload = function(e){
 /////////////////////////////////////////////////////////
 
 function createPeerConnection() {
+  localVideo.style.display = "none";
   try {
     pc = new RTCPeerConnection(pc_config, pc_constraints);
     pc.onicecandidate = handleIceCandidate;
+    if (!isInitiator) {
+      pc.ondatachannel = gotReceiveChannel;
+    }
     console.log('Created RTCPeerConnnection with:\n' +
       '  config: \'' + JSON.stringify(pc_config) + '\';\n' +
       '  constraints: \'' + JSON.stringify(pc_constraints) + '\'.');
@@ -173,8 +236,8 @@ function createPeerConnection() {
     }
     sendChannel.onopen = handleSendChannelStateChange;
     sendChannel.onclose = handleSendChannelStateChange;
-  } else {
-    pc.ondatachannel = gotReceiveChannel;
+  //} else {
+  //  pc.ondatachannel = gotReceiveChannel;
   }
 }
 
@@ -214,6 +277,9 @@ function gotReceiveChannel(event) {
 
 function handleMessage(event) {
   trace('Received message: ' + event.data);
+  if (robotConnected) {
+    sendRobot(event.data);
+  }
   receiveTextarea.value = event.data;
 }
 
@@ -255,7 +321,8 @@ function handleIceCandidate(event) {
 }
 
 function doCall() {
-  var constraints = {'optional': [], 'mandatory': {'MozDontOfferDataChannel': true}};
+  //var constraints = {'optional': [], 'mandatory': {'MozDontOfferDataChannel': true}};
+  var constraints = {'optional': [], 'mandatory': []};
   // temporary measure to remove Moz* constraints in Chrome
   if (webrtcDetectedBrowser === 'chrome') {
     for (var prop in constraints.mandatory) {
@@ -267,12 +334,13 @@ function doCall() {
   constraints = mergeConstraints(constraints, sdpConstraints);
   console.log('Sending offer to peer, with constraints: \n' +
     '  \'' + JSON.stringify(constraints) + '\'.');
-  pc.createOffer(setLocalAndSendMessage, null, constraints);
+  console.log("data channel should be created by now...");
+  pc.createOffer(setLocalAndSendMessage, function(){console.log('woo')}, constraints);
 }
 
 function doAnswer() {
   console.log('Sending answer to peer.');
-  pc.createAnswer(setLocalAndSendMessage, null, sdpConstraints);
+  pc.createAnswer(setLocalAndSendMessage, function(){console.log('woo')}, sdpConstraints);
 }
 
 function mergeConstraints(cons1, cons2) {
@@ -428,3 +496,4 @@ function removeCN(sdpLines, mLineIndex) {
   return sdpLines;
 }
 
+window.addEventListener('load',onLoad,false);
